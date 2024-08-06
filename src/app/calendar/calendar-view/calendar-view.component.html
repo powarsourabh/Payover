@@ -1,0 +1,77 @@
+
+
+
+<!-- calendar-view.component.html -->
+<div class="main-container">
+  <div class="calendar-container">
+    <div class="calendar-header">
+      <button mat-raised-button color="primary" (click)="openDialog()">Create</button>
+    </div>
+    <div class="calendar-content">
+      <h2>Calendar</h2>
+      <div class="calendar-grid">
+        <div class="calendar-grid-header">
+          <div class="calendar-grid-header-item">Sun</div>
+          <div class="calendar-grid-header-item">Mon</div>
+          <div class="calendar-grid-header-item">Tue</div>
+          <div class="calendar-grid-header-item">Wed</div>
+          <div class="calendar-grid-header-item">Thu</div>
+          <div class="calendar-grid-header-item">Fri</div>
+          <div class="calendar-grid-header-item">Sat</div>
+        </div>
+        <div class="calendar-grid-body">
+          <div
+            class="calendar-day"
+            *ngFor="let day of daysInMonth"
+            (click)="toggleAppointments(day)"
+            [class.has-appointments]="getAppointmentsForDay(day).length > 0"
+          >
+            <h3>{{ day }}</h3>
+            <div
+              *ngIf="isDaySelected(day)"
+              cdkDropList
+              [cdkDropListData]="getAppointmentsForDay(day)"
+              class="calendar-day-container"
+              (cdkDropListDropped)="drop($event, day)"
+            >
+              <div
+                class="appointment-item"
+                *ngFor="let appointment of getAppointmentsForDay(day)"
+                cdkDrag
+                [cdkDragData]="appointment"
+              >
+                <p>{{ appointment.title }}</p>
+                <p>{{ appointment.date | date: 'shortTime' }}</p>
+                <button
+                  mat-icon-button
+                  color="warn"
+                  (click)="deleteAppointment(appointment.id)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="appointments-container">
+    <h2>Appointments</h2>
+    <div *ngFor="let appointment of appointments">
+      <div class="appointment-details">
+        <h3>{{ appointment.title }}</h3>
+        <p>{{ appointment.date | date: 'fullDate' }}</p>
+        <p>{{ appointment.date | date: 'shortTime' }}</p>
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="deleteAppointment(appointment.id)"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

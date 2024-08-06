@@ -1,0 +1,20 @@
+/* mat-form-field {
+    width: 100%;
+  }
+  
+  mat-dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 16px;
+  } */
+  
+  mat-dialog-content {
+    padding: 24px;
+  }
+  
+  mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+  }
+  
